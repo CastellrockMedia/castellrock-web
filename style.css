@@ -1,6 +1,10 @@
 :root {
   --color-bg: #1c1c1b;
+  --color-bg-soft: #242423;
   --color-text: #ffffff;
+  --color-text-soft: rgba(255, 255, 255, 0.72);
+  --color-line: rgba(255, 255, 255, 0.12);
+  --space-side: clamp(20px, 3vw, 42px);
 }
 
 * {
@@ -9,23 +13,32 @@
   box-sizing: border-box;
 }
 
-html, body {
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
   width: 100%;
-  height: 100%;
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: var(--color-bg);
-  color: var(--color-text);
+  min-height: 100%;
 }
 
 body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
   overflow-x: hidden;
 }
 
+a {
+  color: inherit;
+}
+
 .site-header {
-  position: absolute;
-  top: 30px;
-  left: 30px;
-  z-index: 10;
+  position: fixed;
+  top: 28px;
+  left: var(--space-side);
+  z-index: 50;
 }
 
 .main-nav {
@@ -35,48 +48,154 @@ body {
 }
 
 .main-nav a {
-  color: var(--color-text);
   text-decoration: none;
-  font-size: 14px;
-  letter-spacing: 0.08em;
   text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  color: var(--color-text);
+  opacity: 0.88;
+  transition: opacity 0.25s ease;
 }
 
 .main-nav a:hover {
-  opacity: 0.7;
+  opacity: 1;
 }
 
 .hero {
   position: relative;
-  width: 100%;
-  height: 100vh;
-  background: var(--color-bg);
+  min-height: 100vh;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-end;
+  padding: 140px var(--space-side) 42px;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.hero-background {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 70% 30%, rgba(255,255,255,0.08), transparent 30%),
+    linear-gradient(135deg, #1c1c1b 0%, #111111 45%, #1f1f1d 100%);
+  z-index: 0;
 }
 
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(28, 28, 27, 0.35), rgba(28, 28, 27, 0.6));
+  background:
+    linear-gradient(to top, rgba(28, 28, 27, 0.86) 0%, rgba(28, 28, 27, 0.38) 45%, rgba(28, 28, 27, 0.18) 100%);
+  z-index: 1;
 }
 
 .hero-content {
   position: relative;
   z-index: 2;
-  text-align: center;
+  max-width: 900px;
+}
+
+.hero-kicker {
+  margin-bottom: 18px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--color-text-soft);
 }
 
 .hero-content h1 {
-  font-size: clamp(2.5rem, 7vw, 6rem);
+  font-size: clamp(3rem, 8vw, 7rem);
   font-weight: 400;
-  letter-spacing: 0.04em;
-  margin-bottom: 12px;
+  line-height: 0.95;
+  letter-spacing: 0.01em;
+  margin-bottom: 18px;
 }
 
-.hero-content p {
-  font-size: 0.95rem;
-  letter-spacing: 0.25em;
+.hero-tagline {
+  font-size: clamp(0.95rem, 1.3vw, 1.1rem);
   text-transform: uppercase;
+  letter-spacing: 0.28em;
+  color: var(--color-text);
+  opacity: 0.92;
+}
+
+.hero-footer {
+  position: absolute;
+  right: var(--space-side);
+  bottom: 42px;
+  z-index: 2;
+  max-width: 360px;
+}
+
+.hero-footer p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text-soft);
+  text-align: right;
+}
+
+.content-section {
+  padding: 100px var(--space-side);
+  border-bottom: 1px solid var(--color-line);
+  background: var(--color-bg);
+}
+
+.section-inner {
+  max-width: 900px;
+}
+
+.section-label {
+  margin-bottom: 14px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--color-text-soft);
+}
+
+.section-inner h2 {
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  font-weight: 400;
+  line-height: 1.05;
+  margin-bottom: 18px;
+}
+
+.section-inner p:last-child {
+  max-width: 700px;
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--color-text-soft);
+}
+
+@media (max-width: 768px) {
+  .site-header {
+    top: 20px;
+  }
+
+  .main-nav {
+    gap: 8px;
+  }
+
+  .main-nav a {
+    font-size: 11px;
+  }
+
+  .hero {
+    align-items: flex-end;
+    padding-top: 170px;
+    padding-bottom: 30px;
+  }
+
+  .hero-footer {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    margin-top: 28px;
+    max-width: 100%;
+  }
+
+  .hero-footer p {
+    text-align: left;
+  }
+
+  .content-section {
+    padding: 72px var(--space-side);
+  }
 }
